@@ -6,27 +6,31 @@ import Echarts from "./components/Echarts.vue";
 import carData from "./assets/mock/carJson.json";
 import tabelData from "./assets/mock/tabelJson.json";
 console.log(tabelData);
-const options = ref({
+const BrakeWear_F_perc =
+  tabelData.compredict_vehicle_health_mih_demo.BrakeWear_F_perc;
+const BrakeWear_R_perc =
+  tabelData.compredict_vehicle_health_mih_demo.BrakeWear_R_perc;
+const data1 = [
+  {
+    name: "front pad wear",
+    data: BrakeWear_F_perc[BrakeWear_F_perc.length - 1],
+  },
+  {
+    name: "rear pad wear",
+    data: BrakeWear_R_perc[BrakeWear_R_perc.length - 1],
+  },
+];
+const options1 = ref({
   title: {
-    text: "Stacked Line",
+    text: "Pad wear",
   },
   tooltip: {
-    // trigger: "axis",
+    trigger: "axis",
+    valueFormatter: (value) => value + " %",
   },
   legend: {
-    data: ["Email", "Union Ads"],
+    data: [data1[0].name, data1[1].name],
   },
-  grid: {
-    left: "3%",
-    right: "4%",
-    bottom: "3%",
-    containLabel: true,
-  },
-  // toolbox: {
-  //   feature: {
-  //     saveAsImage: {},
-  //   },
-  // },
   xAxis: {
     type: "category",
     boundaryGap: false,
@@ -40,16 +44,14 @@ const options = ref({
   },
   series: [
     {
-      name: "Email",
+      name: data1[0].name,
       type: "line",
-      stack: "Total",
-      data: [120, 132, 101, 134, 90, 230, 210],
+      data: data1[0].data,
     },
     {
-      name: "Union Ads",
+      name: data1[1].name,
       type: "line",
-      stack: "Total",
-      data: [220, 182, 191, 234, 290, 330, 310],
+      data: data1[1].data,
     },
   ],
 });
@@ -57,8 +59,9 @@ const options = ref({
 
 <template>
   <div class="text-center selection:bg-green-100">
-    <div class="max-w-[1000px] px-4 grid grid-cols-2 gap-10 mx-auto">
-      <Echarts :options="options"></Echarts>
+    <div class="mx-auto grid max-w-[1000px] grid-cols-2 gap-10 px-4">
+      <Echarts :options="options1"></Echarts>
+      <Echarts :options="options1"></Echarts>
     </div>
   </div>
 </template>
