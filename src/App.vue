@@ -93,20 +93,13 @@ const options2 = ref({
     },
   },
   series: [
-    {
-      name: data2[0].name,
+    ...data2.map((data) => ({
+      name: data.name,
       type: "line",
       stack: "Total",
       areaStyle: {},
-      data: data2[0].data,
-    },
-    {
-      name: data2[1].name,
-      type: "line",
-      stack: "Total",
-      areaStyle: {},
-      data: data2[1].data,
-    },
+      data: data.data,
+    })),
   ],
 });
 const TireWear_Fl_perc =
@@ -202,11 +195,11 @@ const options4 = ref({
     },
   },
   series: [
-    {
-      name: data4[0].name,
+    ...data4.map((data) => ({
+      name: data.name,
       type: "line",
-      data: data4[0].data,
-    },
+      data: data.data,
+    })),
   ],
 });
 const HvBatWear_perc =
@@ -248,6 +241,126 @@ const options5 = ref({
     })),
   ],
 });
+const data6 = [{ name: "Speed", data: carData.compredict_mass_mih_demo.speed }];
+const options6 = ref({
+  title: {
+    text: "Speed",
+  },
+  tooltip: {
+    trigger: "axis",
+    valueFormatter: (value) => value + " km",
+  },
+  legend: {
+    data: data6.map((data) => data.name),
+  },
+  grid: {
+    left: "3%",
+    right: "4%",
+    bottom: "3%",
+    containLabel: true,
+  },
+  xAxis: {
+    type: "category",
+    boundaryGap: false,
+    data: time,
+  },
+  yAxis: {
+    type: "value",
+    axisLabel: {
+      formatter: "{value} km",
+    },
+    max: 200,
+  },
+  series: [
+    ...data6.map((data) => ({
+      name: data.name,
+      type: "line",
+      data: data.data,
+    })),
+  ],
+});
+const data7 = [
+  {
+    name: "Acceleration",
+    data: tabelData.compredict_vehicle_health_mih_demo.Coaching_acc,
+  },
+  {
+    name: "Braking",
+    data: tabelData.compredict_vehicle_health_mih_demo.Coaching_brake,
+  },
+  {
+    name: "Cornering",
+    data: tabelData.compredict_vehicle_health_mih_demo.Coaching_corn,
+  },
+];
+const options7 = ref({
+  title: {
+    text: "Coaching",
+  },
+  tooltip: {
+    trigger: "axis",
+    valueFormatter: (value) => value + " %",
+  },
+  legend: {
+    data: data7.map((data) => data.name),
+  },
+  xAxis: {
+    type: "category",
+    boundaryGap: false,
+    data: time,
+  },
+  yAxis: {
+    type: "value",
+    axisLabel: {
+      formatter: "{value} %",
+    },
+    max: 100,
+  },
+  series: [
+    ...data7.map((data) => ({
+      name: data.name,
+      type: "line",
+      data: data.data,
+    })),
+  ],
+});
+const data8 = [
+  {
+    name: "SOC",
+    data: carData.compredict_mass_mih_demo.soc,
+  },
+];
+const options8 = ref({
+  title: {
+    text: "SOC",
+  },
+  tooltip: {
+    trigger: "axis",
+    valueFormatter: (value) => value + " %",
+  },
+  legend: {
+    data: data8.map((data) => data.name),
+  },
+  xAxis: {
+    type: "category",
+    boundaryGap: false,
+    data: time,
+  },
+  yAxis: {
+    type: "value",
+    axisLabel: {
+      formatter: "{value} %",
+    },
+    max: 100,
+  },
+  series: [
+    ...data8.map((data) => ({
+      name: data.name,
+      type: "line",
+      data: data.data,
+    })),
+  ],
+});
 </script>
 
 <template>
@@ -258,6 +371,9 @@ const options5 = ref({
       <Echarts :options="options3"></Echarts>
       <Echarts :options="options4"></Echarts>
       <Echarts :options="options5"></Echarts>
+      <Echarts :options="options6"></Echarts>
+      <Echarts :options="options7"></Echarts>
+      <Echarts :options="options8"></Echarts>
     </div>
   </div>
 </template>
