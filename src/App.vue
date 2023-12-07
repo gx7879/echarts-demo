@@ -8,167 +8,169 @@ import carData from "./assets/mock/carJson.json";
 import tabelData from "./assets/mock/tabelJson.json";
 
 const time = carData.Timestamp.map((time) => dayjs(time).format("HH:mm"));
-const echartData = [
-  {
-    index: 1,
-    title: "Pad wear",
-    unit: "%",
-    xAxis: {
-      data: ["current", "1000", "1500", "2000", "2500"],
+const echartData = ref(
+  [
+    {
+      index: 1,
+      title: "Pad wear",
+      unit: "%",
+      xAxis: {
+        data: ["current", "1000", "1500", "2000", "2500"],
+      },
+      yAxis: {
+        max: 100,
+      },
+      data: [
+        {
+          name: "front pad wear",
+          data: [53.4, 52.1, 50.8, 50.3, 50],
+        },
+        {
+          name: "rear pad wear",
+          data: [47.4, 46, 44.7, 43.5, 42.1],
+        },
+      ],
     },
-    yAxis: {
-      max: 100,
+    {
+      index: 2,
+      title: "Vehicle mess",
+      unit: "kg",
+      xAxis: {
+        data: time,
+      },
+      data: [
+        {
+          name: "Truck weight",
+          data: Array(3).fill(2500),
+        },
+        {
+          name: "Payload",
+          data: [1000, 1100, 1200],
+        },
+      ],
+      stack: true,
     },
-    data: [
-      {
-        name: "front pad wear",
-        data: [53.4, 52.1, 50.8, 50.3, 50],
+    {
+      index: 3,
+      title: "Tire wear",
+      unit: "%",
+      xAxis: {
+        data: ["current", "1000", "1500", "2000", "2500"],
       },
-      {
-        name: "rear pad wear",
-        data: [47.4, 46, 44.7, 43.5, 42.1],
+      yAxis: {
+        max: 100,
       },
-    ],
-  },
-  {
-    index: 2,
-    title: "Vehicle mess",
-    unit: "kg",
-    xAxis: {
-      data: time,
+      data: [
+        {
+          name: "front left tire wear",
+          data: [34.1, 27.6, 24.1, 20.8, 17.5],
+        },
+        {
+          name: "front right tire wear",
+          data: [34.5, 29.8, 26.8, 23.5, 20.3],
+        },
+        {
+          name: "Rear left tire wear",
+          data: [20.3, 13.5, 9.9, 6.3, 3.5],
+        },
+        {
+          name: "Rear right tire wear",
+          data: [21.7, 15.9, 12.6, 8.9, 5.5],
+        },
+      ],
     },
-    data: [
-      {
-        name: "Truck weight",
-        data: Array(3).fill(2500),
+    {
+      index: 4,
+      title: "Effect remaining range",
+      unit: "km",
+      xAxis: {
+        data: time,
       },
-      {
-        name: "Payload",
-        data: [1000, 1100, 1200],
-      },
-    ],
-    stack: true,
-  },
-  {
-    index: 3,
-    title: "Tire wear",
-    unit: "%",
-    xAxis: {
-      data: ["current", "1000", "1500", "2000", "2500"],
+      data: [
+        {
+          name: "Effect remaining range",
+          data: [185, 187, 189],
+        },
+      ],
     },
-    yAxis: {
-      max: 100,
+    {
+      index: 5,
+      title: "Battery",
+      unit: "%",
+      xAxis: {
+        data: ["current", "1000", "1500", "2000", "2500"],
+      },
+      yAxis: {
+        max: 100,
+      },
+      data: [
+        {
+          name: "Battery",
+          data: [76.8, 76.6, 76.2, 75.7, 75.1],
+        },
+      ],
     },
-    data: [
-      {
-        name: "front left tire wear",
-        data: [34.1, 27.6, 24.1, 20.8, 17.5],
+    {
+      index: 6,
+      title: "Speed",
+      unit: "km",
+      xAxis: {
+        data: time,
       },
-      {
-        name: "front right tire wear",
-        data: [34.5, 29.8, 26.8, 23.5, 20.3],
+      yAxis: {
+        max: 200,
       },
-      {
-        name: "Rear left tire wear",
-        data: [20.3, 13.5, 9.9, 6.3, 3.5],
-      },
-      {
-        name: "Rear right tire wear",
-        data: [21.7, 15.9, 12.6, 8.9, 5.5],
-      },
-    ],
-  },
-  {
-    index: 4,
-    title: "Effect remaining range",
-    unit: "km",
-    xAxis: {
-      data: time,
+      data: [
+        {
+          name: "Speed",
+          data: [20, 50, 70],
+        },
+      ],
     },
-    data: [
-      {
-        name: "Effect remaining range",
-        data: [185, 187, 189],
+    {
+      index: 8,
+      title: "Coaching",
+      unit: "%",
+      xAxis: {
+        data: time,
       },
-    ],
-  },
-  {
-    index: 5,
-    title: "Battery",
-    unit: "%",
-    xAxis: {
-      data: ["current", "1000", "1500", "2000", "2500"],
-    },
-    yAxis: {
-      max: 100,
-    },
-    data: [
-      {
-        name: "Battery",
-        data: [76.8, 76.6, 76.2, 75.7, 75.1],
+      yAxis: {
+        max: 100,
       },
-    ],
-  },
-  {
-    index: 6,
-    title: "Speed",
-    unit: "km",
-    xAxis: {
-      data: time,
+      data: [
+        {
+          name: "Acceleration",
+          data: [92, 91, 90],
+        },
+        {
+          name: "Braking",
+          data: [98, 97, 96],
+        },
+        {
+          name: "Cornering",
+          data: [91, 90, 89],
+        },
+      ],
     },
-    yAxis: {
-      max: 200,
-    },
-    data: [
-      {
-        name: "Speed",
-        data: [20, 50, 70],
+    {
+      index: 7,
+      title: "SOC",
+      unit: "%",
+      xAxis: {
+        data: time,
       },
-    ],
-  },
-  {
-    index: 8,
-    title: "Coaching",
-    unit: "%",
-    xAxis: {
-      data: time,
-    },
-    yAxis: {
-      max: 100,
-    },
-    data: [
-      {
-        name: "Acceleration",
-        data: [92, 91, 90],
+      yAxis: {
+        max: 100,
       },
-      {
-        name: "Braking",
-        data: [98, 97, 96],
-      },
-      {
-        name: "Cornering",
-        data: [91, 90, 89],
-      },
-    ],
-  },
-  {
-    index: 7,
-    title: "SOC",
-    unit: "%",
-    xAxis: {
-      data: time,
+      data: [
+        {
+          name: "SOC",
+          data: [73, 72, 71],
+        },
+      ],
     },
-    yAxis: {
-      max: 100,
-    },
-    data: [
-      {
-        name: "SOC",
-        data: [73, 72, 71],
-      },
-    ],
-  },
-].sort((a, b) => a.index - b.index);
+  ].sort((a, b) => a.index - b.index)
+);
 // const BrakeWear_F_perc =
 //   tabelData.compredict_vehicle_health_mih_demo.BrakeWear_F_perc;
 // const BrakeWear_R_perc =
