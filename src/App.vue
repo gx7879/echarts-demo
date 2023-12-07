@@ -7,6 +7,25 @@ import Echarts from "./components/Echarts.vue";
 import carData from "./assets/mock/carJson.json";
 import tabelData from "./assets/mock/tabelJson.json";
 console.log(tabelData);
+// [
+//   {
+//     "title": "Pad wear",
+//     "unit": "%",
+//     "xAxis": {
+//       "data": ["current", "1000", "1500", "2000", "2500"]
+//     },
+//     "data": [
+//       {
+//         "name": "front pad wear",
+//         "data": [53.4, 52.1, 50.8, 50.3, 50]
+//       },
+//       {
+//         "name": "rear pad wear",
+//         "data": [47.4, 46, 44.7, 43.5, 42.1]
+//       }
+//     ]
+//   }
+// ]
 const BrakeWear_F_perc =
   tabelData.compredict_vehicle_health_mih_demo.BrakeWear_F_perc;
 const BrakeWear_R_perc =
@@ -24,6 +43,7 @@ const data1 = [
 const options1 = ref({
   title: {
     text: "Pad wear",
+    left: "3%",
   },
   tooltip: {
     trigger: "axis",
@@ -31,6 +51,15 @@ const options1 = ref({
   },
   legend: {
     data: data1.map((data) => data.name),
+    top: "7%",
+    left: "3%",
+  },
+  grid: {
+    top: "20%",
+    left: "3%",
+    right: "4%",
+    bottom: "3%",
+    containLabel: true,
   },
   xAxis: {
     type: "category",
@@ -67,6 +96,7 @@ const data2 = [
 const options2 = ref({
   title: {
     text: "Vehicle mess",
+    left: "3%",
   },
   tooltip: {
     trigger: "axis",
@@ -74,8 +104,11 @@ const options2 = ref({
   },
   legend: {
     data: data2.map((data) => data.name),
+    top: "7%",
+    left: "3%",
   },
   grid: {
+    top: "20%",
     left: "3%",
     right: "4%",
     bottom: "3%",
@@ -131,6 +164,7 @@ const data3 = [
 const options3 = ref({
   title: {
     text: "Tire wear",
+    left: "3%",
   },
   tooltip: {
     trigger: "axis",
@@ -138,6 +172,15 @@ const options3 = ref({
   },
   legend: {
     data: data3.map((data) => data.name),
+    top: "7%",
+    left: "3%",
+  },
+  grid: {
+    top: "20%",
+    left: "3%",
+    right: "4%",
+    bottom: "3%",
+    containLabel: true,
   },
   xAxis: {
     type: "category",
@@ -169,6 +212,7 @@ const data4 = [
 const options4 = ref({
   title: {
     text: "Effect remaining range",
+    left: "3%",
   },
   tooltip: {
     trigger: "axis",
@@ -176,8 +220,11 @@ const options4 = ref({
   },
   legend: {
     data: data4.map((data) => data.name),
+    top: "7%",
+    left: "3%",
   },
   grid: {
+    top: "20%",
     left: "3%",
     right: "4%",
     bottom: "3%",
@@ -213,6 +260,7 @@ const data5 = [
 const options5 = ref({
   title: {
     text: "Battery",
+    left: "3%",
   },
   tooltip: {
     trigger: "axis",
@@ -220,6 +268,15 @@ const options5 = ref({
   },
   legend: {
     data: data5.map((data) => data.name),
+    top: "7%",
+    left: "3%",
+  },
+  grid: {
+    top: "20%",
+    left: "3%",
+    right: "4%",
+    bottom: "3%",
+    containLabel: true,
   },
   xAxis: {
     type: "category",
@@ -245,6 +302,7 @@ const data6 = [{ name: "Speed", data: carData.compredict_mass_mih_demo.speed }];
 const options6 = ref({
   title: {
     text: "Speed",
+    left: "3%",
   },
   tooltip: {
     trigger: "axis",
@@ -252,8 +310,11 @@ const options6 = ref({
   },
   legend: {
     data: data6.map((data) => data.name),
+    top: "7%",
+    left: "3%",
   },
   grid: {
+    top: "20%",
     left: "3%",
     right: "4%",
     bottom: "3%",
@@ -296,6 +357,7 @@ const data7 = [
 const options7 = ref({
   title: {
     text: "Coaching",
+    left: "3%",
   },
   tooltip: {
     trigger: "axis",
@@ -303,6 +365,15 @@ const options7 = ref({
   },
   legend: {
     data: data7.map((data) => data.name),
+    top: "7%",
+    left: "3%",
+  },
+  grid: {
+    top: "20%",
+    left: "3%",
+    right: "4%",
+    bottom: "3%",
+    containLabel: true,
   },
   xAxis: {
     type: "category",
@@ -333,6 +404,7 @@ const data8 = [
 const options8 = ref({
   title: {
     text: "SOC",
+    left: "3%",
   },
   tooltip: {
     trigger: "axis",
@@ -340,6 +412,15 @@ const options8 = ref({
   },
   legend: {
     data: data8.map((data) => data.name),
+    top: "7%",
+    left: "3%",
+  },
+  grid: {
+    top: "20%",
+    left: "3%",
+    right: "4%",
+    bottom: "3%",
+    containLabel: true,
   },
   xAxis: {
     type: "category",
