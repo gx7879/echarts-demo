@@ -7,25 +7,43 @@ import Echarts from "./components/Echarts.vue";
 import carData from "./assets/mock/carJson.json";
 import tabelData from "./assets/mock/tabelJson.json";
 console.log(tabelData);
-// [
-//   {
-//     "title": "Pad wear",
-//     "unit": "%",
-//     "xAxis": {
-//       "data": ["current", "1000", "1500", "2000", "2500"]
-//     },
-//     "data": [
-//       {
-//         "name": "front pad wear",
-//         "data": [53.4, 52.1, 50.8, 50.3, 50]
-//       },
-//       {
-//         "name": "rear pad wear",
-//         "data": [47.4, 46, 44.7, 43.5, 42.1]
-//       }
-//     ]
-//   }
-// ]
+const time = carData.Timestamp.map((time) => dayjs(time).format("HH:mm"));
+const echartData = [
+  {
+    title: "Pad wear",
+    unit: "%",
+    xAxis: {
+      data: ["current", "1000", "1500", "2000", "2500"],
+    },
+    data: [
+      {
+        name: "front pad wear",
+        data: [53.4, 52.1, 50.8, 50.3, 50],
+      },
+      {
+        name: "rear pad wear",
+        data: [47.4, 46, 44.7, 43.5, 42.1],
+      },
+    ],
+  },
+  {
+    title: "Vehicle mess",
+    unit: "kg",
+    xAxis: {
+      data: time,
+    },
+    data: [
+      {
+        name: "Truck weight",
+        data: Array(3).fill(2500),
+      },
+      {
+        name: "Payload",
+        data: [1000, 1100, 1200],
+      },
+    ],
+  },
+];
 const BrakeWear_F_perc =
   tabelData.compredict_vehicle_health_mih_demo.BrakeWear_F_perc;
 const BrakeWear_R_perc =
@@ -81,7 +99,6 @@ const options1 = ref({
     })),
   ],
 });
-const time = carData.Timestamp.map((time) => dayjs(time).format("HH:mm"));
 const MassEstim = carData.compredict_mass_mih_demo.Payload;
 const data2 = [
   {
@@ -447,14 +464,19 @@ const options8 = ref({
 <template>
   <div class="text-center selection:bg-green-100">
     <div class="mx-auto grid max-w-[1000px] grid-cols-2 gap-10 px-4">
-      <Echarts :options="options1"></Echarts>
+      <Echarts
+        v-for="(data, i) of echartData"
+        :key="i"
+        :options="data"
+      ></Echarts>
+      <!-- <Echarts :options="options1"></Echarts>
       <Echarts :options="options2"></Echarts>
       <Echarts :options="options3"></Echarts>
       <Echarts :options="options4"></Echarts>
       <Echarts :options="options5"></Echarts>
       <Echarts :options="options6"></Echarts>
       <Echarts :options="options7"></Echarts>
-      <Echarts :options="options8"></Echarts>
+      <Echarts :options="options8"></Echarts> -->
     </div>
   </div>
 </template>

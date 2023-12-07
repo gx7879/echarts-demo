@@ -12,9 +12,53 @@ const props = defineProps({
 });
 const echartInstance = ref(null);
 const chart = ref(null);
+const option = props.options;
+const optionsVal = ref({
+  title: {
+    text: option.title,
+    left: "3%",
+  },
+  tooltip: {
+    trigger: "axis",
+    valueFormatter: (value) => `${value} ${option.unit}`,
+  },
+  legend: {
+    data: option.data.map((data) => data.name),
+    top: "7%",
+    left: "3%",
+  },
+  grid: {
+    top: "20%",
+    left: "3%",
+    right: "4%",
+    bottom: "3%",
+    containLabel: true,
+  },
+  xAxis: {
+    type: "category",
+    boundaryGap: false,
+    data: option.xAxis.data,
+  },
+  yAxis: {
+    type: "value",
+    axisLabel: {
+      formatter: `{value} ${option.unit}`,
+    },
+    // max: 100,
+  },
+  series: [
+    ...option.data.map((data) => ({
+      name: data.name,
+      type: "line",
+      data: data.data,
+      stack: "Total",
+      areaStyle: {},
+    })),
+  ],
+});
+console.log(optionsVal.value);
 function draw() {
-  const option = props.options;
-  echartInstance.value.setOption(option);
+  echartInstance.value.setOption(optionsVal.value);
 }
 onMounted(() => {
   echartInstance.value = markRaw(echarts.init(chart.value));
