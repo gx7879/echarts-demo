@@ -10,6 +10,7 @@ import tabelData from "./assets/mock/tabelJson.json";
 const time = carData.Timestamp.map((time) => dayjs(time).format("HH:mm"));
 const echartData = [
   {
+    index: 1,
     title: "Pad wear",
     unit: "%",
     xAxis: {
@@ -30,6 +31,7 @@ const echartData = [
     ],
   },
   {
+    index: 2,
     title: "Vehicle mess",
     unit: "kg",
     xAxis: {
@@ -48,6 +50,7 @@ const echartData = [
     stack: true,
   },
   {
+    index: 3,
     title: "Tire wear",
     unit: "%",
     xAxis: {
@@ -76,6 +79,7 @@ const echartData = [
     ],
   },
   {
+    index: 4,
     title: "Effect remaining range",
     unit: "km",
     xAxis: {
@@ -89,6 +93,7 @@ const echartData = [
     ],
   },
   {
+    index: 5,
     title: "Battery",
     unit: "%",
     xAxis: {
@@ -105,6 +110,7 @@ const echartData = [
     ],
   },
   {
+    index: 6,
     title: "Speed",
     unit: "km",
     xAxis: {
@@ -121,6 +127,7 @@ const echartData = [
     ],
   },
   {
+    index: 8,
     title: "Coaching",
     unit: "%",
     xAxis: {
@@ -145,6 +152,7 @@ const echartData = [
     ],
   },
   {
+    index: 7,
     title: "SOC",
     unit: "%",
     xAxis: {
@@ -160,7 +168,7 @@ const echartData = [
       },
     ],
   },
-];
+].sort((a, b) => a.index - b.index);
 // const BrakeWear_F_perc =
 //   tabelData.compredict_vehicle_health_mih_demo.BrakeWear_F_perc;
 // const BrakeWear_R_perc =
