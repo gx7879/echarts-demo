@@ -13,6 +13,8 @@ const props = defineProps({
 const echartInstance = ref(null);
 const chart = ref(null);
 const option = props.options;
+const stack = option.stack ? { stack: "Total", areaStyle: {} } : {};
+const max = option.yAxis?.max ? { max: option.yAxis.max } : {};
 const optionsVal = ref({
   title: {
     text: option.title,
@@ -44,15 +46,14 @@ const optionsVal = ref({
     axisLabel: {
       formatter: `{value} ${option.unit}`,
     },
-    // max: 100,
+    ...max,
   },
   series: [
     ...option.data.map((data) => ({
       name: data.name,
       type: "line",
       data: data.data,
-      stack: "Total",
-      areaStyle: {},
+      ...stack,
     })),
   ],
 });
@@ -66,5 +67,4 @@ onMounted(() => {
 });
 </script>
 
-<style>
-</style>
+<style></style>
