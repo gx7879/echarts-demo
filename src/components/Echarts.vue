@@ -12,7 +12,7 @@ const props = defineProps({
 });
 const echartInstance = ref(null);
 const chart = ref(null);
-const option = toRef(props.options);
+const option = computed(() => props.options);
 const stack = option.value.stack ? { stack: "Total", areaStyle: {} } : {};
 const max = option.value.yAxis?.max ? { max: option.value.yAxis.max } : {};
 const xAxisData = option.value.dynamic ? {} : { data: option.value.xAxis.data };
@@ -59,7 +59,7 @@ const optionsVal = computed(() => ({
     containLabel: true,
   },
   xAxis: {
-    type: option.value.title === "Effect remaining range" ? "time" : "category",
+    type: option.value.dynamic ? "time" : "category",
     boundaryGap: false,
     ...xAxisData,
   },
@@ -72,7 +72,7 @@ const optionsVal = computed(() => ({
   },
   series: [...dynamicData],
 }));
-if (option.value.title === "Effect remaining range") {
+if (option.value.dynamic) {
   console.log(optionsVal.value);
 }
 let now = new Date(1997, 9, 3);
@@ -91,15 +91,17 @@ function randomData() {
 }
 function draw() {
   echartInstance.value.setOption(optionsVal.value);
-  if (option.value.title === "Effect remaining range") {
+  if (option.value.dynamic) {
     setInterval(function () {
-      console.log(option.value);
-      for (var i = 0; i < 5; i++) {
-        const data = randomData();
-        option.value.data.shift();
-        option.value.data.push(data.value);
-      }
-
+      // console.log(option.value);
+      // for (var i = 0; i < 5; i++) {
+      //   const data = randomData();
+      //   if (option.value.data.length >= 100) {
+      //     option.value.data.shift();
+      //   }
+      //   option.value.data.push(data.value);
+      // }
+      console.log("222");
       echartInstance.value.setOption({
         series: [
           {
@@ -107,7 +109,7 @@ function draw() {
           },
         ],
       });
-    }, 1000);
+    }, 5000);
   }
 }
 onMounted(() => {
