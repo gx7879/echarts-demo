@@ -61,7 +61,7 @@ const fetchData = ref([
 setInterval(() => {
   now = new Date(+now + oneDay);
   fetchData.value[0].xAxis.data.push(now.toString());
-  fetchData.value[0].data[0].data.push(value);
+  fetchData.value[0].data[0].data.push(Math.round(value));
   console.log("111");
 }, 5000);
 const dynamicMapData = computed(() => {
