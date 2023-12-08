@@ -15,6 +15,32 @@ const chart = ref(null);
 const option = toRef(props.options);
 const stack = option.value.stack ? { stack: "Total", areaStyle: {} } : {};
 const max = option.value.yAxis?.max ? { max: option.value.yAxis.max } : {};
+const xAxisData = option.value.dynamic ? {} : { data: option.value.xAxis.data };
+const legend = option.value.dynamic
+  ? { top: "7%", left: "3%" }
+  : {
+      data: option.value.data.map((data) => data.name),
+      top: "7%",
+      left: "3%",
+    };
+const dynamicData = option.value.dynamic
+  ? [
+      {
+        name: option.value.title,
+        type: "line",
+        data: option.value.data,
+        ...stack,
+      },
+    ]
+  : [
+      ...option.value.data.map((data) => ({
+        name: data.name,
+        type: "line",
+        data: data.data,
+        ...stack,
+      })),
+    ];
+console.log(dynamicData);
 const optionsVal = computed(() => ({
   title: {
     text: option.value.title,
@@ -24,11 +50,7 @@ const optionsVal = computed(() => ({
     trigger: "axis",
     valueFormatter: (value) => `${value} ${option.value.unit}`,
   },
-  legend: {
-    data: option.value.data.map((data) => data.name),
-    top: "7%",
-    left: "3%",
-  },
+  legend: legend,
   grid: {
     top: "20%",
     left: "3%",
@@ -37,9 +59,9 @@ const optionsVal = computed(() => ({
     containLabel: true,
   },
   xAxis: {
-    type: "category",
+    type: option.value.title === "Effect remaining range" ? "time" : "category",
     boundaryGap: false,
-    data: option.value.xAxis.data,
+    ...xAxisData,
   },
   yAxis: {
     type: "value",
@@ -48,46 +70,40 @@ const optionsVal = computed(() => ({
     },
     ...max,
   },
-  series: [
-    ...option.value.data.map((data) => ({
-      name: data.name,
-      type: "line",
-      data: data.data,
-      ...stack,
-    })),
-  ],
+  series: [...dynamicData],
 }));
+if (option.value.title === "Effect remaining range") {
+  console.log(optionsVal.value);
+}
 let now = new Date(1997, 9, 3);
 let value = Math.random() * 1000;
+let oneDay = 24 * 3600 * 1000;
 function randomData() {
-  let oneDay = 24 * 3600 * 1000;
   now = new Date(+now + oneDay);
   value = value + Math.random() * 21 - 10;
   return {
-    time: [now.getFullYear(), now.getMonth() + 1, now.getDate()].join("/"),
-    value,
+    name: now.toString(),
+    value: [
+      [now.getFullYear(), now.getMonth() + 1, now.getDate()].join("/"),
+      Math.round(value),
+    ],
   };
 }
 function draw() {
   echartInstance.value.setOption(optionsVal.value);
   if (option.value.title === "Effect remaining range") {
     setInterval(function () {
-      // console.log(123);
+      console.log(option.value);
       for (var i = 0; i < 5; i++) {
         const data = randomData();
-        if (option.value.xAxis.data.length >= 5) {
-          option.value.xAxis.data.shift();
-          option.value.data[0].data.shift();
-        }
-        option.value.xAxis.data.push(data.time);
-        option.value.data[0].data.push(data.value);
+        option.value.data.shift();
+        option.value.data.push(data.value);
       }
 
       echartInstance.value.setOption({
-        xAxis: { data: optionsVal.value.xAxis.data },
         series: [
           {
-            data: optionsVal.value.series[0].data,
+            data: option.value.data,
           },
         ],
       });
