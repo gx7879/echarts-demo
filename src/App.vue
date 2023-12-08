@@ -4,18 +4,7 @@
 import { ref, computed } from "vue";
 import dayjs from "dayjs";
 import Echarts from "./components/Echarts.vue";
-import carData from "./assets/mock/carJson.json";
-// import tabelData from "./assets/mock/tabelJson.json";
-// import axios from "axios";
 
-// async function getData() {
-//   const { data } = await axios.get(
-//     "https://app-mih-fms-dev-001.azurewebsites.net/v1/ivy_insights/mass"
-//   );
-//   console.log(data);
-// }
-// getData();
-const time = carData.Timestamp.map((time) => dayjs(time).format("HH:mm"));
 let now = new Date();
 let value = Math.random() * 1000;
 let oneDay = 24 * 3600 * 1000;
@@ -60,10 +49,11 @@ const fetchData = ref([
 ]);
 setInterval(() => {
   now = new Date(+now + oneDay);
+  value = value + Math.random() * 21 - 10;
   fetchData.value[0].xAxis.data.push(now.toString());
   fetchData.value[0].data[0].data.push(Math.round(value));
-  console.log("111");
 }, 5000);
+
 const dynamicMapData = computed(() => {
   const dynamicMapData = fetchData.value.map((data, i) => {
     return {
@@ -83,15 +73,7 @@ const dynamicMapData = computed(() => {
   });
   return dynamicMapData;
 });
-console.log(dynamicMapData.value);
-// {
-//   index: 4,
-//   title: "Effect remaining range",
-//   unit: "km",
-//   data: dynamicData,
-//   dynamic: true,
-// },
-console.log(dynamicData);
+
 const echartData = computed(() =>
   [
     // {

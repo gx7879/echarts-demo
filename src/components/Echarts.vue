@@ -40,7 +40,6 @@ const dynamicData = option.value.dynamic
         ...stack,
       })),
     ];
-console.log(dynamicData);
 const optionsVal = computed(() => ({
   title: {
     text: option.value.title,
@@ -72,23 +71,20 @@ const optionsVal = computed(() => ({
   },
   series: [...dynamicData],
 }));
-if (option.value.dynamic) {
-  console.log(optionsVal.value);
-}
-let now = new Date(1997, 9, 3);
-let value = Math.random() * 1000;
-let oneDay = 24 * 3600 * 1000;
-function randomData() {
-  now = new Date(+now + oneDay);
-  value = value + Math.random() * 21 - 10;
-  return {
-    name: now.toString(),
-    value: [
-      [now.getFullYear(), now.getMonth() + 1, now.getDate()].join("/"),
-      Math.round(value),
-    ],
-  };
-}
+// let now = new Date(1997, 9, 3);
+// let value = Math.random() * 1000;
+// let oneDay = 24 * 3600 * 1000;
+// function randomData() {
+//   now = new Date(+now + oneDay);
+//   value = value + Math.random() * 21 - 10;
+//   return {
+//     name: now.toString(),
+//     value: [
+//       [now.getFullYear(), now.getMonth() + 1, now.getDate()].join("/"),
+//       Math.round(value),
+//     ],
+//   };
+// }
 function draw() {
   echartInstance.value.setOption(optionsVal.value);
   if (option.value.dynamic) {
@@ -101,7 +97,6 @@ function draw() {
       //   }
       //   option.value.data.push(data.value);
       // }
-      console.log("222");
       echartInstance.value.setOption({
         series: [
           {
